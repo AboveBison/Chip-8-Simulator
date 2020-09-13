@@ -28,7 +28,7 @@ Memory::Memory()
 */
 uint8_t Memory::getMemByte(uint64_t byteAddress)
 {
-	if (byteAddress > 4095 || byteAddress < 0x200) {
+	if (byteAddress > 4095 || byteAddress < 0) {
 		std::cout << "Error getting memory value from " << byteAddress;
 		return -1; ;
 	}
@@ -143,4 +143,15 @@ void Memory::preload()
 	memory[70] = 0xF0; memory[71] = 0x80; memory[72] = 0xF0; memory[73] = 0x80; memory[74] = 0xF0;
 	//Sprite data for the graphic of F.
 	memory[75] = 0xF0; memory[76] = 0x80; memory[77] = 0xF0; memory[78] = 0x80; memory[79] = 0x80;
+}
+
+/*
+* 
+*	Function: load
+*	Description: This function is used to load the binary data from a predetermined list of files into RAM.
+* 
+*/
+void Memory::load(char*  str)
+{
+
 }
