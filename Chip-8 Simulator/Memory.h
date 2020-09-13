@@ -20,6 +20,7 @@ class Memory
 	uint16_t	stack[STACK_SIZE];
 	int			stackPointer;
 	FILE*		file;
+	uint8_t*	progStart = &memory[512];
 	//Private Member Functions
 
 	//Public Member Functions

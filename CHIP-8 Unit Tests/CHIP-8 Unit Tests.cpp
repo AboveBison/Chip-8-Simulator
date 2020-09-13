@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../Memory.h"
+#include "../Chip-8 Simulator/Memory.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

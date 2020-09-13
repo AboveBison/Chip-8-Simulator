@@ -153,5 +153,6 @@ void Memory::preload()
 */
 void Memory::load(char*  str)
 {
-
+	file = fopen(str, "r");
+	int size = fread(progStart, sizeOf(uint8_t), 3584, file);
 }
