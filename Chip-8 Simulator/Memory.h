@@ -12,22 +12,23 @@
 #include <cstdio>
 #include <iostream>
 #include "Values.h"
+#include "Registers.h"
 
 class Memory
 {
 	//Private Member Data
 	uint8_t		memory[MEM_SIZE];
 	uint16_t	stack[STACK_SIZE];
-	int			stackPointer;
 	FILE*		file;
-	uint8_t*	progStart = &memory[512];
+	uint8_t*	progStart = &memory[0x200];
+	Registers*	regs;
 	//Private Member Functions
 
 	//Public Member Functions
 	public:
 
 		//Constructor
-		Memory();
+		Memory(Registers* r);
 
 		//General RAM accessor and mutator functions
 		uint8_t		getMemByte(uint64_t byteAddress);
@@ -42,7 +43,7 @@ class Memory
 		void		preload();
 
 		//Methods used to load programs into Memory.
-		void		load(char* str);
+		void		load(int select);
 	
 };
 #endif

@@ -1,12 +1,14 @@
+#pragma warning(disable:4996)
 /*
 	File: Memory.cpp
 	Desc: Implementation of the Memory Section of the CHIP 8 Simulator. This houses the RAM and Program Stack of the CHIP-8 as well as the numerical value of the stack pointer.
 	Author: Robert Stroud
-	Last Updated: 9/8/2020
+	Last Updated: 9/22/2020
 */
 #include <cstdint>
 #include <iostream>
 #include "Memory.h"
+
 
 /*
 * 
@@ -14,9 +16,9 @@
 *	Description: Resets the Program Stack and RAM to their initial states. This includes reloading the prequired info required by the interpreter into RAM.
 * 
 */
-Memory::Memory()
+Memory::Memory(Registers* r)
 {
-
+	regs = r;
 	reset();
 }
 
@@ -60,12 +62,12 @@ void Memory::putMemByte(uint64_t byteAddress, uint8_t value)
 uint16_t Memory::pop()
 {
 	uint16_t result = -1;
-	if (stackPointer <= 0) {
+	if (regs->getStack() <= 0) {
 		std::cout << "Error in retrieving stack data, either nothing is on the stack or sp has been corrupted.";
 	}
 	else {
-		result = stack[stackPointer];
-		stackPointer--;
+		regs->putStack(regs->getStack() - 1);
+		result = stack[regs->getStack()];
 	}
 	return result;
 }
@@ -78,9 +80,10 @@ uint16_t Memory::pop()
 */
 void Memory::push(uint16_t value)
 {
-	if (stackPointer < 15) {
-		stack[stackPointer] = value;
-		stackPointer++;
+	if (regs->getStack() < 15) {
+		stack[regs->getStack()] = value;
+		regs->putStack(regs->getStack() + 1);
+
 	}
 	else {
 		std::cout << "Error there is no more room on the stack, no changes will be made.";
@@ -99,7 +102,7 @@ void Memory::reset()
 		memory[i] = 0;
 	for (int j = 0; j < STACK_SIZE; j++)
 		stack[j] = 0;
-	stackPointer = 0;
+	regs->putStack(0);
 	Memory::preload();
 }
 
@@ -151,8 +154,78 @@ void Memory::preload()
 *	Description: This function is used to load the binary data from a predetermined list of files into RAM.
 * 
 */
-void Memory::load(char*  str)
+void Memory::load(int select)
 {
-	file = fopen(str, "r");
-	int size = fread(progStart, sizeOf(uint8_t), 3584, file);
+	switch (select)
+	{
+		case 0:
+			file = fopen("../Chip-8 Simulator/c8games/PONG", "rb");
+			break;
+		case 1:
+			file = fopen(PUZZLE15, "rb");
+			break;
+		case 2:
+			file = fopen(BLINKY, "rb");
+			break;
+		case 3:
+			file = fopen(BRIX, "rb");
+			break;
+		case 4:
+			file = fopen(CONNECT, "rb");
+			break;
+		case 5:
+			file = fopen(GUESS, "rb");
+			break;
+		case 6:
+			file = fopen(HIDDEN, "rb");
+			break;
+		case 7:
+			file = fopen(INVADERS, "rb");
+			break;
+		case 8:
+			file = fopen(KALEID, "rb");
+			break;
+		case 9:
+			file = fopen(MAZE, "rb");
+			break;
+		case 10:
+			file = fopen(MERLIN, "rb");
+			break;
+		case 11:
+			file = fopen(MISSILE, "rb");
+			break;
+		case 12:
+			file = fopen(PONGTWO, "rb");
+			break;
+		case 13:
+			file = fopen(PUZZLE, "rb");
+			break;
+		case 14:
+			file = fopen(SYZYGY, "rb");
+			break;
+		case 15:
+			file = fopen(TANK, "rb");
+			break;
+		case 16:
+			file = fopen(TETRIS, "rb");
+			break;
+		case 17:
+			file = fopen(TICTAC, "rb");
+			break;
+		case 18:
+			file = fopen(UFO, "rb");
+			break;
+		case 19:
+			file = fopen(VBRIX, "rb");
+			break;
+		case 20:
+			file = fopen(WIPEOFF, "rb");
+			break;
+		default:
+			file = fopen(PONG, "rb");
+			break;
+	}
+	int size = fread(progStart, 1, 3584, file);
+	printf("%02x\n", size);
+	fclose(file);
 }

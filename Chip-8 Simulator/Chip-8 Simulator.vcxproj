@@ -114,7 +114,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -128,7 +128,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -139,12 +139,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Memory.cpp" />
-    <ClCompile Include="Loader.cpp" />
+    <ClInclude Include="Memory.h" />
+    <ClInclude Include="Registers.h" />
+    <ClInclude Include="Values.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Memory.h" />
-    <ClInclude Include="Values.h" />
+    <ClCompile Include="Demo.cpp" />
+    <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Registers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="c8games\15PUZZLE" />
+    <None Include="c8games\BLINKY" />
+    <None Include="c8games\BLITZ" />
+    <None Include="c8games\BRIX" />
+    <None Include="c8games\CONNECT4" />
+    <None Include="c8games\GUESS" />
+    <None Include="c8games\HIDDEN" />
+    <None Include="c8games\INVADERS" />
+    <None Include="c8games\KALEID" />
+    <None Include="c8games\MAZE" />
+    <None Include="c8games\MERLIN" />
+    <None Include="c8games\MISSILE" />
+    <None Include="c8games\PONG" />
+    <None Include="c8games\PONG2" />
+    <None Include="c8games\PUZZLE" />
+    <None Include="c8games\SYZYGY" />
+    <None Include="c8games\TANK" />
+    <None Include="c8games\TETRIS" />
+    <None Include="c8games\TICTAC" />
+    <None Include="c8games\UFO" />
+    <None Include="c8games\VBRIX" />
+    <None Include="c8games\VERS" />
+    <None Include="c8games\WIPEOFF" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

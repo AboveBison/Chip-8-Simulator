@@ -8,21 +8,27 @@
 */
 
 #include "Memory.h"
+#include "Values.h"
+#include "Registers.h"
 
 int main()
 {
-	Memory mem = new Memory();
-	mem.load("./c8games/PONG");
+	Registers* registers = new Registers();
+	Memory* mem = new Memory(registers);
+	mem->load(0);
 
 	//Prints preloaded data.
 	for (int i = 0; i < 80; i++)
 	{
-		printf("%b\n", (int)mem.getMemByte(i));
+		printf("%x\n", (int)mem->getMemByte(i));
 	}
-
-	//prints loaded data. 
-	for (int j = 512; i < 528; i++)
+	printf("\n");
+	for (int j = 0x200; j < 0x2F0; j++)
 	{
-		printf("%x\n", (int)mem.getMemByte(j));
+		if (((j - 0x200) % 16) == 0)
+		{
+			printf("\n");
+		}
+		printf("%02x  ", (int)mem->getMemByte(j));
 	}
 }
